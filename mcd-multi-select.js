@@ -55,6 +55,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { async } from '@polymer/polymer/lib/utils/async.js';
+import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
+import { IronA11yKeysBehavior } from '@polymer/iron-a11y-keys-behavior/iron-a11y-keys-behavior.js';
+
 /**
  * `mcd-multi-select`
  * Enables multi-selection from given set of items.
@@ -63,7 +66,7 @@ import { async } from '@polymer/polymer/lib/utils/async.js';
  * @polymer
  * @demo demo/index.html
  */
-class MCDMultiSelect extends PolymerElement {
+class MCDMultiSelect extends mixinBehaviors([IronA11yKeysBehavior], PolymerElement) {
   static get template() {
     return html`
     <style>
@@ -583,10 +586,10 @@ class MCDMultiSelect extends PolymerElement {
    * @private
    */
   _onKeydown(e) {
-    if (Polymer.IronA11yKeysBehavior.keyboardEventMatchesKeys(e,'enter')) {
+    if (IronA11yKeysBehavior.keyboardEventMatchesKeys(e,'enter')) {
       // close dialog on 'enter'
       this.close();
-    } else if (Polymer.IronA11yKeysBehavior.keyboardEventMatchesKeys(e,'esc')) {
+    } else if (IronA11yKeysBehavior.keyboardEventMatchesKeys(e,'esc')) {
       if (e.path[0].localName == 'input') {
         // close the dialog when the user press 'escape' while focusing on the input field.
         this.close();
