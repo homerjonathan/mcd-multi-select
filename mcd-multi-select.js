@@ -54,6 +54,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { async } from '@polymer/polymer/lib/utils/async.js';
 /**
  * `mcd-multi-select`
  * Enables multi-selection from given set of items.
@@ -459,7 +460,7 @@ class MCDMultiSelect extends PolymerElement {
     this.opened = false;
     
     // fully hide the dialog when the fading animations end. 
-    Polymer.Async.timeOut.run(function() {
+    async.timeOut.run(function() {
       this.$.dialog.style.visibility = "hidden";
     }.bind(this), this._animationDuration);
   }
@@ -496,9 +497,9 @@ class MCDMultiSelect extends PolymerElement {
       // Reloads "dom-repeat".
       // TODO: Improve code related to reloading 'dom-repeat'.
       console.warn("Improve code related to reloading 'dom-repeat'.");
-      Polymer.Async.microTask.run(function() {
+      async.microTask.run(function() {
         this.filterValue = "-";
-        Polymer.Async.microTask.run(function() {
+        async.microTask.run(function() {
           this.filterValue = "";
         }.bind(this));
       }.bind(this));
