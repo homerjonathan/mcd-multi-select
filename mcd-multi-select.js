@@ -54,7 +54,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { async } from '@polymer/polymer/lib/utils/async.js';
+import { microTask, timeOut } from '@polymer/polymer/lib/utils/async.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { IronA11yKeysBehavior } from '@polymer/iron-a11y-keys-behavior/iron-a11y-keys-behavior.js';
 
@@ -463,7 +463,7 @@ class MCDMultiSelect extends mixinBehaviors([IronA11yKeysBehavior], PolymerEleme
     this.opened = false;
     
     // fully hide the dialog when the fading animations end. 
-    async.timeOut.run(function() {
+    timeOut.run(function() {
       this.$.dialog.style.visibility = "hidden";
     }.bind(this), this._animationDuration);
   }
@@ -500,9 +500,9 @@ class MCDMultiSelect extends mixinBehaviors([IronA11yKeysBehavior], PolymerEleme
       // Reloads "dom-repeat".
       // TODO: Improve code related to reloading 'dom-repeat'.
       console.warn("Improve code related to reloading 'dom-repeat'.");
-      async.microTask.run(function() {
+      microTask.run(function() {
         this.filterValue = "-";
-        async.microTask.run(function() {
+        microTask.run(function() {
           this.filterValue = "";
         }.bind(this));
       }.bind(this));
